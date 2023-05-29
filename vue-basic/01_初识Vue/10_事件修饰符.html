@@ -1,0 +1,113 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+        <style>
+            * {
+              margin-top: 3px;  
+            }
+            .demo1 {
+                background-color: azure;
+            }
+            .box1 {
+                margin: 5px;
+                background-color: burlywood;
+            }
+            .box2 {
+                margin: 5px;
+                background-color: yellowgreen;
+            }
+            .list{
+                height: 200px;
+                width: 200px;
+                background-color: burlywood;
+                overflow: auto;
+            }
+            .list li {
+                height: 100px;
+                width: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <h2>欢迎来到{{name}} 学习</h2>
+            <a href="http://www.baidu.com" @click="showInfo">点我学习</a>
+            <!-- 阻止调用默认行为 -->
+            <a href="http://www.baidu.com" @click.prevent="showInfo2">点我学习</a>
+
+            <div class ="demo1" @click.prevent="showInfo2">
+                <a href="http://www.baidu.com" @click="showInfo">点我学习</a>
+                <!-- stop 阻止事件冒泡（常用） -->
+                <a href="http://www.baidu.com" @click.stop="showInfo2">点我学习</a>
+                 <!-- stop 阻止事件冒泡（常用） 再阻止默认事件 【可以阻止多个 可以连续写】 -->
+                <a href="http://www.baidu.com" @click.stop.prevent="showInfo2">点我学习</a>
+            </div>
+
+            <!--  事件只触发一次（常用） -->
+            <button @click.once="showInfo2">只触发一次</button>
+
+            <!-- 使用事件的捕获模式 -->
+            <div class="box1" @click.capture="showMsg('box1')">
+                div1
+                <div class="box2" @click="showMsg('box2')">
+                    div2
+                </div>
+            </div>
+
+
+
+            <!-- 事件的默认行为立即执行，无需要事件回调执行完毕 -->
+            // @scroll 滚轮条的事件
+            // @wheel 鼠标的滚轮滚动 
+            <ul class="list" @wheel.passive="demo">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+            </ul>
+
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+            const vm=new Vue({
+                el:"#root",
+                data:{
+                    name:"IT 小钢"
+                },
+                methods:{
+                    showInfo(e){
+                       // e.preventDefault() // 阻止调用默认行为
+                        alert('同学你好！')
+                    },
+                    showInfo2(e){
+                       e.stopPropagation() // 阻止事件冒泡
+                       e.preventDefault() // 阻止调用默认行为
+                       alert('同学你好！')
+                    },
+                    showMsg(msg){
+                        console.log(msg)
+                    },
+                    demo(){
+                        for(let i=0;i<100000;i++){
+                            console.log('@')
+                        } 
+                    }
+                }
+            })
+
+            // Vue 中的事件修饰符
+            // 1.prevent 阻止默认事件（常用）
+            // 2 stop 阻止事件冒泡（常用）
+            // 3. once 事件只触发一次（常用）
+            // 4.capture 使用事件的捕获模式
+            // 5 self 只有evetn.targe是当前操作的元素才时触发事件
+            // 6 passive 事件默认行为立即执行，无需等待事件回调执行完毕
+        </script>
+    </body>
+</html>

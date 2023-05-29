@@ -1,0 +1,36 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h1>name {{_data.name}}</h1>
+            <h1>address {{address}}</h1>
+            <img src="../img/6051cb65764ce3ce5a77d85184a9348a.png">
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = true  // 阻止Vue 在启动时生成的生产提示
+
+            let data={
+                name:"it school",
+                address:"changping & biejing city"
+            }
+
+            const vm = new Vue({
+                el:"#root",
+                data:data
+            })
+            // 使用 Object.defindProperty 实现
+            // 通过vm 对象来代理data对象中的属性的操作（读/写）
+            // Vue 中数据代理的好处： 更加方便的 操作对象
+            // 使用 bject.defindProperty  
+            // 
+        </script>
+    </body>
+</html>

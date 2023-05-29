@@ -1,0 +1,55 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h2>欢迎来到 {{name}} 学习</h2>
+            <button v-on:click="showInfo">点我提示信息</button>
+            <button @click="showInfo">点我提示信息</button>
+            <button @click="showInfo2('小钢',$event)">点我提示信息(传参数)</button>
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+            const vm =new Vue({
+                el:"#root",
+                data:{ // 放在data下的 会做数据劫持 & 数据代理
+                    name :"小钢 IT"
+                },
+                methods:{
+                    // showInfo(event,b,c,d){
+                    //     console.log(event,b,c,d)
+                    //     console.log(event.target.innerText)
+                    //     alert('同学你好！')
+                    //     console.log(this) // Vue
+                    // }
+
+                    // 最好不用 箭头函数 如下 ，
+                    showInfo: (event,b,c,d) => {
+                        console.log(event,b,c,d)
+                        console.log(event.target.innerText)
+                        alert('同学你好！')
+                        console.log(this) // Window
+                    },
+
+                    showInfo2(name,event){ 
+                        alert(name+' 同学你好!!!!！') 
+
+                        console.log(this)
+                        console.log(event)
+                    }
+                }
+            })
+
+            // 使用 v-on:click 绑定 或者使用 @click 绑定函数
+            // @click=“showInfo”   = @click="showInfo($event)"
+
+        </script>
+    </body>
+</html>

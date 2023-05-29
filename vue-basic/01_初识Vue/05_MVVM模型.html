@@ -1,0 +1,39 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h1>name = {{name}}</h1>
+            <h1>address = {{address}}</h1>
+            <!-- <h1>test = {{1 + 1 }}</h1>
+            <h1>test2 = {{$options}}</h1>
+            <h1>test3 = {{$emit}}</h1>
+            <h1>test4 = {{_c}}</h1> -->
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+
+            // MVVM
+            // M 模型 Model，对应data中的数据
+            // V 视图View， 模版
+            // VM : 视图模型 ViewModel  Vue实例对象
+
+            const vm= new Vue({
+                el:"#root",
+                data:{
+                    name:"hg",
+                    address:"beijing ",
+                    a:11
+                }
+            })
+            console.log(vm)
+        </script>
+    </body>
+</html>

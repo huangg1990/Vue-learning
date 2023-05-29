@@ -1,0 +1,55 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+
+            let number =18
+
+            // 回顾 Object.defineProperty方法
+            let person ={
+                name : "zhang san",
+                sex: 'M',
+                // age:number 
+            }
+
+            // age 属性不参于遍历 不能被枚举
+            // Object.defineProperty(person,'age',{
+            //     value:19,
+            //     enumerable:true, // 控制属性是否可枚举
+            //     writable:true, // 控制属性是否可以被修改
+            //     configurable:true, //控制属性是否可以被删除
+
+            // })
+
+
+            Object.defineProperty(person,'age',{
+                // 当有人读取person 的age属性时，get函数就会衩调用，且返回的什一就是age 的值
+                get(){
+                    return number
+                },
+                 // 当有人修改person 的age属性时，get函数就会衩调用，且返回的什一就是age 的值
+                set(val){
+                    console.log(val)
+                    number=val
+                }
+            })
+
+            console.log(person)
+
+            // console.log(Object.keys(person))
+
+        </script>
+    </body>
+</html>

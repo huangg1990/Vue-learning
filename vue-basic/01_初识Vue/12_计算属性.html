@@ -1,0 +1,66 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            姓:<input type="text" v-model="firstName" /> <br/>
+            名:<input type="text" v-model="lastName" /> <br/>
+            全名：<span>{{firstName.slice(0,3)}}-{{lastName}}</span><br/>
+            全名2-menths：<span>{{fullNameM()}}</span><br/>
+            全名3-计算属性：<span>{{fullNameC}}</span><br/>
+            全名3-计算属性：<span>{{fullNameC}}</span><br/>
+            全名3-计算属性：<span>{{fullNameC}}</span><br/>
+
+
+            ---简写 方式: 只有在不考虑 修改的时候才能这么写 <br/>
+            全名3-计算属性：<span>{{fullNameCJX}}</span><br/>
+
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+
+            const vm=new Vue({
+                el:"#root",
+                data:{
+                    firstName:"张",
+                    lastName:"三"
+                },
+                methods:{
+                    fullNameM(){ // this就是 Vue对象 -- 效率不高
+                        console.log('@---fullName')
+                        return this.firstName.slice(0,3) + '-' + this.lastName
+                    }
+                },
+                computed:{ // 计算属性放在这里 [做了缓存] 不会频繁调用  推荐使用
+                    fullNameC: {
+                        // 当有人读取FullName 时get就会被调用，且返回值就作为fullName的值
+                        // get什么时候调用，
+                        // 1）初次读取时 
+                        // 2）所依赖的数据发生变化时
+                        get(){
+                            console.log('-------@ get 被调用了')
+                            console.log(this) //  此处的this是 vm
+                           return this.firstName +"-" + this.lastName
+                        },
+                        set(value){ // 当fullNameC被修改时调用
+                            const arr = value.split('-')
+                            this.firstName = arr[0]  
+                            this.lastName = arr[1]
+                        }
+                    },
+                    // 简写方式 只有get方式
+                    fullNameCJX(){
+                        return this.firstName +"-" + this.lastName
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

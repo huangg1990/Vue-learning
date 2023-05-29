@@ -1,0 +1,53 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <input type="text" placeholder="按下回画提示输入" @keyup.caps-lock="showInfo"/>
+            <input type="text" placeholder="按下tab提示输入" @keydonw.tab="showInfo"/>
+            <input type="text" placeholder="按下alt提示输入" @keyup.alt="showInfo"/>
+            <input type="text" placeholder="按下alt提示输入" @keydown.alt="showInfo"/>
+
+            <!-- 组合键 alt + y -->
+            <input type="text" placeholder="按下alt + y 提示输入" @keydown.alt.y="showInfo"/>
+        </div>
+
+        <script type="text/javascript">
+            // Vue 中常用的按键别名
+            // 回车 =》 enter
+            // 删除   delete (捕获删除 或 退格)
+            // 退出 esc
+            // 空格 space
+            // 换行 tab [特殊必须配制 deydown使用]
+            // 上 up 下 down 左 left 右 right
+
+            // Vue 示提供别名的按键，可以使用按键原始的key 值去绑定，但注意要转为keybab-case (短横线)
+            // 系统修饰键（用法特殊） ctrl,alt,shift,meta 
+            //  1 配合keyup使用，按下修饰键的同叶，再按下其他键，随后释放其他键，事件才被触发
+            //  2 配合keydown使用，正常触发事件
+
+            // 也可以使用 keyCode 去指定具体的按键（不推荐）
+            // Vue.config.keycodes.自定义键名 = 键码，可以去指定按键别名
+
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+
+            const vm=new Vue({
+                el:"#root",
+                data:{},
+                methods:{
+                    showInfo(e){
+                        console.log(e.target.value)
+                        console.log(e.key,e.keyCode)
+                    }
+                }
+            })
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h1>插值语法- 一般用于标签体</h1>
+            <h3>你好，{{name}}</h3>
+            <hr/>
+
+            <h1>指令语法-用于标签属性</h1>
+            <a v-bind:href="url">点我去学习</a>
+            <a :href="school.url.toUpperCase()" v-bind:x="school.hello">点我去[{{school.name}}]学习2</a>
+
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+
+            new Vue({
+                el:"#root",
+                data:{
+                    name:"jack",
+                    school:{
+                        url:"http://www.baidu.com",
+                        hello:"xxxxx1111",
+                        name:"小刚IT"
+                    }
+                   
+                }
+            })
+
+            // v-bind: 可以简写 为 :
+          
+            // * 指令语法
+            // * 用于解析标签属性，标签内容，绑定事件
+
+        </script>
+    </body>
+</html>
