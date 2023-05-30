@@ -1,0 +1,68 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            姓:<input type="text" v-model="firstName" /> <br/>
+            名:<input type="text" v-model="lastName" /> <br/>
+            全名：<span>{{firstName.slice(0,3)}}-{{lastName}}</span><br/>
+            全名2-watch：<span>{{fullName}}</span><br/> 
+
+            <!--
+                computed和watch之间区别：
+                1，computed能完成的功能，watch 都可以完成。
+                2，watch能完成的，computed不一定能完成，比如watch能查得异步操作。
+
+                两个重要的小原则：
+                1，所被Vue管理的函数，最好写成普通函数。这样this的指向才是vm 或组件实例对象
+                2，所有不被Vue 管理的函数（定时器回调函数、ajax的回调函数等 Promise的回调函数），最好写成箭头函数。这样this的指向才是vm或组件实例对象
+
+                目标只有一个 让this 指向 Vue 的实例或组件实例
+            
+                next p26
+            -->
+
+
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+
+            const vm=new Vue({
+                el:"#root",
+                data:{
+                    firstName:"张",
+                    lastName:"三",
+                    fullName:'张-三'
+                },
+                watch:{
+                    firstName(newValue,oldValue){
+                        // 监视属性 异步只能使用 Watch 不能使用计算属性
+                        // （） this函数是Window --会 自己没有就会向上找
+                        setTimeout(() =>{
+                            this.fullName= newValue +'-' +this.lastName
+                        },1000) 
+                    },
+
+                    // firstName(newValue,oldValue){
+                    //     // 监视属性 异步只能使用 Watch 不能使用计算属性 
+                    //     // 箭头函数 
+                    //     setTimeout( function(){
+                    //         console.log(this)
+                    //         this.fullName= newValue +'-' +this.lastName
+                    //     },1000) 
+                    // },
+                    lastName(newValue,oldValue){
+                        this.fullName= this.firstName +'-' + newValue
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,73 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+      
+    </head>
+    <body>
+        <div id="root">
+            <h2>今天天气很 {{isHotLab}}</h2>
+            <button @click="changeWeather">切换天气</button>
+            <button @click="isHot = !isHot">切换天气2 投机取巧 少干</button>
+        </div>
+
+        <script type="text/javascript">
+          Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+          const vm= new Vue({
+                el:"#root",
+                data:{
+                    isHot: true,
+                    x:0
+                },
+                computed:{
+                    isHotLab(){
+                      return  (this.isHot? '炎热': '凉爽') + this.x
+                    }
+                },
+                methods: {
+                    changeWeather(){
+                        this.isHot= !this.isHot
+                    }
+                },
+                //  第一种写法 
+                watch:{
+                    // 计算属性也可以 监听 【正常写法】
+                    // isHot:{
+                    //     immediate:true, // 立即执行 【一上来会执行一次 如果为true时】 初始化时
+                    //     /**
+                    //      * handler什么时候调用 ？ 当 isHos 发生改变时
+                    //      * */
+                    //     handler(newValue,oldValue){
+                    //         console.log('isHot被修改了',newValue,oldValue)
+                    //     }
+                    // }
+
+                    // 简写 相当于直接写handler 方法
+                    // isHot(newValue,oldValue){
+                    //     console.log('isHot被修改了',newValue,oldValue)
+                    // }
+                }
+            }) 
+
+            // //  第2种写法 正常写法
+            // vm.$watch('isHot',{
+            //   immediate:true,
+            //   handler(newValue,oldValue){
+            //     console.log('isHot被修改了',newValue,oldValue)
+            //   }  
+            // }) 
+
+            //  第2种写法 简写 
+              vm.$watch('isHot',function(newValue,oldValue){
+                console.log('isHot被修改了',newValue,oldValue)
+              }) 
+
+
+
+        </script>
+    </body>
+</html>
