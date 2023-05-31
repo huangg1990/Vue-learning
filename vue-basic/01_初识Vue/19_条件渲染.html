@@ -1,0 +1,86 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+
+     <!--
+        条件渲染：
+            1） v-if 写法 v-if= 表达式
+                v-else-if =“表达式”
+                v-else =“表达式”
+            适用于：切换频率较低的场景。
+            特点：不展示的Dom直接被移除
+            注意：v-if 可以和v-else-if,v-else一起使用，介要求结构不能被“打断”
+        
+            2) v-show 写法： v-show="表达式"
+            适用于：切勿频率高的场景
+            特点：不展示的Dom元素未被移除，仅仅使用样式隐藏掉
+        
+            3.备注：使用v-if时，元素可能无法获取到，面使用v-show一定可以获取到。
+
+            next p029
+     -->
+
+        <div id="root">
+            <!-- 使用 v-show做条件渲染   Dom节点在只是不显示而已 变化的频繁建议使用 效率高-->
+            <h2 v-show="h2Show">欢迎来到{{name}}</h2>
+            <h2 v-show="false">欢迎来到{{name}}</h2>
+
+            <hr/>
+
+            <!-- 使用 v-if  Dom节点 如果不显示就直接没有 频繁低使用 多了有效率问题 -->
+            <h2 v-if="false">欢迎来到{{name}}</h2>
+
+            <h2>当前n={{n}}</h2>
+            <button @click="n++">点我n++</button>
+
+            <div v-if="n>=1">Angular</div>
+            <div v-if="n>=2">React</div>
+            <div v-if="n>=3">Vue</div>
+
+            <hr/>
+            <!-- v-if v-else-if  v-else  条件渲染 满足只后就不在执行了 结构要紧密在一起 -->
+            <div v-if="n===1">else- Angular</div>
+            <!-- <div>@</div> 这样就不行了 ，结构不连续了 -->
+            <div v-else-if="n===1">else- React1</div>
+            <div v-else-if="n===2">else- React2</div>
+            <div v-else-if="n===3">else- Vue</div>
+            <div v-else> haha</div>
+
+            <hr/>
+            <!-- 影响结构 多加了一个div -->
+            <div v-show="n===1">
+                <h2>Hello</h2>
+                <h2>Dan</h2>
+                <h2>Beijing</h2>
+            </div>
+            <hr/>
+
+             <!--建议使用template 不影响Dom结构 只能使用v-if 不能结合 v-show 使用 -->
+            <template v-if="n === 1">
+                <h2>Hello</h2>
+                <h2>Dan</h2>
+                <h2>Beijing</h2>
+            </template>
+
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+            const vm =new Vue({
+                el:"#root",
+                data:{
+                    h2Show:true,
+                    name:"IT gang",
+                    n:0
+                }
+            })
+        </script>
+    </body>
+</html>
