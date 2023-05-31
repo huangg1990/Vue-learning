@@ -1,0 +1,67 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+        <style type="text/css">
+            .basic{
+                border: 1px solid black; 
+                height: 200px;
+                width: 600px;
+                margin-top: 5px;
+            }
+            .happy{
+                background-color: silver;
+            }
+            .sad{
+                background-color: gray;
+            }
+            .normal{
+                background-color: white;
+            }
+            .txt_s1{ 
+                font-size: 20px; 
+                color: brown; 
+            }
+            .txt_s2{
+                margin: 4px 4px;
+            }
+            .txt_s3{ 
+                border-radius: 20px; 
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <div class="basic" :class="moodClass">今天怎么样？</div> <button @click="changeMood">切换心情</button>
+            <div class="basic" :class="{sad:false,txt_s3:true,txt_s2:false }">今天怎么样？</div>
+            <div class="basic" :class="objClass">今天怎么样？</div> 
+            <div class="basic" :class="classArr">今天怎么样？</div> 
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+            const vm =new Vue({
+                el:"#root",
+                data:{
+                    moodClass:"normal",
+                    objClass:{
+                        'sad':true,
+                        'txt_s1':true
+                    },
+                    classArr:['happy','txt_s1','txt_s2','txt_s3']
+                },
+                methods: {
+                    changeMood(){
+                      const idx= Math.floor(  Math.random()*3)
+                      const moodArr=["happy","sad","normal"]
+                      this.moodClass = moodArr[idx]
+                    }
+                },
+            })
+        </script>
+    </body>
+</html>
