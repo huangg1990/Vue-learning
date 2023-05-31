@@ -36,10 +36,25 @@
     </head>
     <body>
         <div id="root">
-            <div class="basic" :class="moodClass">今天怎么样？</div> <button @click="changeMood">切换心情</button>
-            <div class="basic" :class="{sad:false,txt_s3:true,txt_s2:false }">今天怎么样？</div>
-            <div class="basic" :class="objClass">今天怎么样？</div> 
+            <!-- 绑定class样式 字符串写法，适用于：样式类名不确定 ，需要动态指定  -->
+            <div class="basic" :class="moodClass" @click="changeMood">今天怎么样？</div> <br/>
+
+            <!-- 绑定class样式 数组写法，适用于：个数不确定 ，名称不确定  -->
             <div class="basic" :class="classArr">今天怎么样？</div> 
+
+            <!-- 绑定class样式 对象写法，适用于：个数确定 ，名称确定 动态决定用不用  -->
+            <div class="basic" :class="{sad:iSsad,txt_s1:iStxt_s1,txt_s3:true,txt_s2:false }">今天怎么样？</div>
+            <div class="basic" :class="objClass">今天怎么样？</div> 
+
+
+            <!-- 绑定 style   对象写法 -->
+            <div class="basic" :style="styleObj" >今天怎么样？</div> 
+
+            <!-- 绑定 style   数组写法 -->
+            <div class="basic" :style="[styleObj,styleObj2]" >今天怎么样？</div> 
+            
+            <!-- 绑定 style   数组写法 -->
+            <div class="basic" :style="styleArr" >今天怎么样？</div> 
         </div>
 
         <script type="text/javascript">
@@ -49,14 +64,35 @@
                 data:{
                     moodClass:"normal",
                     objClass:{
-                        'sad':true,
-                        'txt_s1':true
+                        txt_s1:true,
+                        txt_s2:true,
+                        txt_s3:true
                     },
-                    classArr:['happy','txt_s1','txt_s2','txt_s3']
+                    classArr:['happy','txt_s1','txt_s2','txt_s3'],
+
+                    iSsad:true,
+                    iStxt_s1:false,
+
+                    styleObj:{
+                        fontSize:'40px',
+                        color:'red'
+                    },
+                    styleObj2:{
+                        backgroundColor:"blue"
+                    },
+                    styleArr:[
+                        {
+                            fontSize:'40px',
+                            color:'red'
+                        },
+                        {
+                            backgroundColor:"blue"
+                        }
+                    ]
                 },
                 methods: {
                     changeMood(){
-                      const idx= Math.floor(  Math.random()*3)
+                      const idx= Math.floor(Math.random()*3)
                       const moodArr=["happy","sad","normal"]
                       this.moodClass = moodArr[idx]
                     }
