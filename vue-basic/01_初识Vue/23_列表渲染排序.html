@@ -1,0 +1,57 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h2>人员列表： 监视属性实现</h2>
+            <input type="text" placeholder="请输入用户姓名" v-model="keyWord" />
+            <button @click="sortFlag=1">年龄升序</button>
+            <button @click="sortFlag=2">年龄降序</button>
+            <button @click="sortFlag=0">原顺序</button>
+            <ul>
+                <li v-for="(item,idx) in showPersons" :key="idx">
+                    {{idx}}: {{item.name}}-{{item.age}} 
+                </li>
+            </ul> 
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+            // 计算属性 实现
+            const vm=new Vue({
+                el:"#root",
+                data:{
+                    keyWord:'',
+                    persons:[
+                        {id:1,name:'马冬梅',age:19,gender:"女"},
+                        {id:2,name:'周冬雨',age:12,gender:"女"},
+                        {id:3,name:'周杰伦',age:17,gender:"男"},
+                        {id:4,name:'温兆伦',age:22,gender:"男"}
+                    ],
+                    sortFlag:0
+                },
+                computed:{
+                    showPersons(){
+                        const showData=this.persons.filter((p) => {
+                            return p.name.indexOf(this.keyWord) !== -1  
+                        })
+                        
+                        // todo 排序
+                        if(this.sortFlag) return showData
+                        
+                        showData.sort((p1,p2)=>{
+                           return this.sortFlag === 1 ?  (p2.age - p1.age):( p1.age - p2.age)
+                        })
+                        return showData
+                    }
+                } 
+            })
+        </script>
+    </body>
+</html>

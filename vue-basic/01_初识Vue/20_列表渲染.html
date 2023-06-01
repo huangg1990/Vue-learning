@@ -1,0 +1,73 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h2>人员列表：遍历Array</h2>
+            <ul>
+                <li v-for="(item,idx) in persons" :key="idx">
+                    {{idx}}: {{item.name}}-{{item.age}} 
+                </li>
+            </ul>
+            <!--  -->
+            <ul>
+                <li v-for="(item,idx) of persons" :key="idx">
+                    {{idx}}: {{item.name}}-{{item.age}} 
+                </li>
+            </ul>
+
+            <ul>
+                <li v-for="p in persons" :key="p.id">
+                    {{p.name}}-{{p.age}}
+                </li>
+            </ul>
+
+            <h3>汽车信息:遍历对象</h3>
+            <ul>
+                <li v-for="(v,k) in car" :key="k">
+                    {{k}}: {{v}}
+                </li>
+            </ul>
+
+            <h3>汽车信息:遍历字符串</h3>
+            <ul>
+                <li v-for="(char,idx) in str" :key="idx">
+                    {{char}}: {{idx}}
+                </li>
+            </ul>
+
+            <h3>汽车信息:遍历指定次数</h3>
+            <ul>
+                <li v-for="(number,idx) of 5" :key="idx">
+                    {{number}}: {{idx}}
+                </li>
+            </ul>
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+            const vm=new Vue({
+                el:"#root",
+                data:{
+                    persons:[
+                        {id:1,name:'ZhanSan',age:19},
+                        {id:2,name:'Lisi',age:12},
+                        {id:3,name:'Wangwu',age:17}
+                    ],
+                    car:{
+                        name:'aodi-A8',
+                        price:188822.0,
+                        level:'A'
+                    },
+                    str:"hello"
+                }
+            })
+        </script>
+    </body>
+</html>

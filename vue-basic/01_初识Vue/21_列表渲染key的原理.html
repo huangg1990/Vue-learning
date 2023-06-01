@@ -1,0 +1,80 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+
+        <!--
+        面试题： react,Vue 中的key 有什么作用户？（key 的内部原理）
+        1) 虚拟Dom中的key 的作用：
+            key是许牛Dom对象的标识，当状中的数据发生变化时，Vue 会根据 新数据 生成 拳的虚拟DOM，随后Vue进行 新许牛Dom与 旧
+            的虚拟Dom差异比较，比较规则如下：
+
+        2）对比规则
+            a,旧虚拟Dom中找到了与新许牛Dom桢的key
+              若虚拟Dom中内容没变，直接使用之前的真实Dom
+              若虚拟Dom中的内容变了，则生成新的真空Dom，随后替换掉页面中之前的真空Dom
+            b,旧虚拟Dom中未找到与新虚拟Dom相同的key 
+              创建新的真实Dom ,随后渲染到页面
+        3) 用index作为key 可能会引发的问题
+            a,若对数据进行：逆序添加、逆序删除等 破坏顺序操作：
+                会产生没有必要的真实Dom一时半会儿 -- 洁面效果没有问题，但效率低
+            b,如果结构中还包含输入类型的Dom
+                会产生错误Dom更新 -- 界面有问题
+        4）开发中如何选择key 
+            a,最好使用第不重要数据的唯一标识使用为key,比如id
+            b,如果不存在对数据的逆序添加、删除等待破坏顺序操作，使用用于渲染列表用于展示。
+            使用index作为key 是没有问题的。
+        
+        -->
+
+        <div id="root">
+            <h2>人员列表：遍历Array</h2>
+            <button @click.onece="add">添加一个小刚</button>
+            <ul>
+                <!-- 使用 index 会出问题 因为index从0开始，结果input数据 没有跟随移动，使用key唯一ID才能解决 -->
+                <li v-for="(item,idx) in persons" :key="idx">
+                    {{idx}}: {{item.name}}-{{item.age}} 
+                    <input type="text"/>
+                </li>
+            </ul>
+
+            <h2>人员列表：遍历2</h2>
+            <button @click.onece="add">添加一个小刚</button>
+            <!-- 使用key= 数据的唯一ID时效率高 & 不会出现 破坏数据原有顺序下不会导致数据节点错乱 -->
+            <ul>
+                <li v-for="(item,idx) in persons" :key="item.id">
+                    {{idx}}: {{item.name}}-{{item.age}} 
+                    <input type="text" />
+                </li>
+            </ul>
+            
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+            const vm=new Vue({
+                el:"#root",
+                data:{
+                    persons:[
+                        {id:1,name:'ZhanSan',age:19},
+                        {id:2,name:'Lisi',age:12},
+                        {id:3,name:'Wangwu',age:17}
+                    ]
+                },
+                methods:{
+                    add(){
+                        const p={id:3,name:"XiaoGang",age:19}
+                        // 破环原有的顺序 添加到第1个
+                        this.persons.unshift(p)
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

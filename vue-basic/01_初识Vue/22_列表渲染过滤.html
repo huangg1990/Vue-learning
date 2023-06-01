@@ -1,0 +1,99 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h2>人员列表： 监视属性实现</h2>
+            <input type="text" placeholder="请输入用户姓名" v-model="keyWord" />
+            <ul>
+                <li v-for="(item,idx) in showPersons" :key="idx">
+                    {{idx}}: {{item.name}}-{{item.age}} 
+                </li>
+            </ul> 
+        </div>
+
+        <div id="root2">
+            <h2>人员列表：计算属性实现</h2>
+            <input type="text" placeholder="请输入用户姓名" v-model="keyWord" />
+            <ul>
+                <li v-for="(item,idx) in showPersons" :key="idx">
+                    {{idx}}: {{item.name}}-{{item.age}} 
+                </li>
+            </ul>
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+          
+            // 如果能使用计算属性实现，优先使用计算属性实现
+          
+            // 监视实现
+            const vm=new Vue({
+                el:"#root",
+                data:{
+                    keyWord:'',
+                    persons:[
+                        {id:1,name:'马冬梅',age:19,gender:"女"},
+                        {id:2,name:'周冬雨',age:12,gender:"女"},
+                        {id:3,name:'周杰伦',age:17,gender:"男"},
+                        {id:4,name:'温兆伦',age:22,gender:"男"}
+                    ],
+                    showPersons:[]
+                },
+
+                // 监视属性 实现
+                watch:{
+                    keyWord:{
+                        immediate:true, //默认调用一次
+                        handler(newValue,oldValue){
+                            this.showPersons = this.persons.filter((p) => 
+                            {
+                                return p.name.indexOf(newValue) !== -1
+                            })
+                        }
+                    }
+                    // keyWord(newValue,oldValue){
+                    //     console.log('keyWord is changed .',newValue)
+                    //     if(newValue.length == 0 ){
+                    //         this.showPersons = this.persons
+                    //     }else{
+                    //         this.showPersons = this.persons.filter((p) => 
+                    //         {
+                    //             return p.name.indexOf(newValue) !== -1
+                    //         })
+                    //     } 
+                    // }
+                }
+                
+            })
+
+            // 计算属性 实现
+            const vm2=new Vue({
+                el:"#root2",
+                data:{
+                    keyWord:'',
+                    persons:[
+                        {id:1,name:'马冬梅',age:19,gender:"女"},
+                        {id:2,name:'周冬雨',age:12,gender:"女"},
+                        {id:3,name:'周杰伦',age:17,gender:"男"},
+                        {id:4,name:'温兆伦',age:22,gender:"男"}
+                    ]
+                },
+                computed:{
+                    showPersons(){
+                        return this.persons.filter((p) => 
+                            {
+                                return p.name.indexOf(this.keyWord) !== -1
+                            })
+                    }
+                } 
+            })
+        </script>
+    </body>
+</html>
