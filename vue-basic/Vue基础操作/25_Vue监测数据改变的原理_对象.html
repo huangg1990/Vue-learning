@@ -1,0 +1,39 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h2>姓名:{{name}}</h2>
+            <h2>地址:{{address}}</h2> 
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+            // 计算属性 实现
+            const vm=new Vue({
+                el:"#root",
+                data:{
+                   name:"小刚",
+                   address:"北京",
+                   student:{
+                    name:'hg',
+                    age:{
+                        rAge:29,
+                        sAge:18
+                    },
+                    friends:[
+                        {name:"tom",age:19},
+                        {name:"jack",age:21}
+                    ]
+                   }
+                } 
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,52 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root"> 
+        </div>
+
+        <script type="text/javascript">
+            let data ={
+                name :"huangg",
+                address:"beijing"
+            }
+
+            // 这样就递归 死循环了 ，当读取和 更新时
+            // Object.defineProperties(data,'name',{
+            //     get(){
+            //       return data.name
+            //     },
+            //     set(value){
+            //         data.name= value
+            //     }
+            // })
+
+
+            const obs =new Observer(data)
+            console.log(obs)
+
+            function Observer(obj){
+               let keys= Object.keys(obj)
+               keys.forEach((k)=>{
+                  Object.defineProperty(this,k,{
+                    get(){
+                        return data[k]
+                    },
+                    set(value){
+                        console.log('${k} 被修改了，开始解析模版，生成虚拟Dom 对比，刷新真实Dom....')
+                        data[k]=value
+
+                    }
+                  })
+               })
+            }
+
+        </script>
+    </body>
+</html>

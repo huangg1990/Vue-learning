@@ -1,0 +1,70 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+
+            <h1>学校信息</h1>
+            <button @click="addSchoolLeader">添加校长</button>
+            <h2>姓名:{{school.name}}</h2>
+            <h2>地址:{{school.address}}</h2> 
+            <h2 v-if="school.leader">校长:{{school.leader}}</h2> 
+            <hr/>
+            <h1>学生信息</h1>
+            <button @click="addStudentSex">添加性别</button>
+            <h2>姓名:{{student.name}}</h2>
+            <h2 v-if="student.sex">性别:{{student.sex}}</h2>
+            <h2>年龄:{{student.age.rAge}} -- 对外年龄{{student.age.sAge}}</h2> 
+            <h2>朋友们</h2> 
+            <ul>
+                <li v-for="(f,idx) in student.friends" :key="idx">
+                    {{f.name}}--{{f.age}}
+                </li>
+            </ul>
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+            // 计算属性 实现
+            const vm=new Vue({
+                el:"#root",
+                data:{
+                    school:{
+                        name:"小刚",
+                        address:"北京",
+                    },
+                    student:{
+                    name:'hg',
+                    age:{
+                        rAge:29,
+                        sAge:18
+                    },
+                    friends:[
+                        {name:"tom",age:19},
+                        {name:"jack",age:21}
+                    ]
+                   }
+                },
+                methods: {
+                    addStudentSex(){
+                        //Vue.set(this._data.student,'sex','男')
+                        //Vue.set(this.student,'sex','男')
+                        this.$set(this.student,'sex','男')
+                    },
+                    addSchoolLeader(){
+                        Vue.set(this.school,'leader',{
+                            name:'丝绸',
+                            age:19
+                        })
+                    }
+                },
+            })
+        </script>
+    </body>
+</html>

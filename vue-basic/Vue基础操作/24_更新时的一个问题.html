@@ -1,0 +1,51 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h2>人员列表： 监视属性实现</h2>
+            <button @click="updPerson">修改第一个</button> 
+            <ul>
+                <li v-for="(item,idx) in persons" :key="idx">
+                    {{idx}}: {{item.name}}-{{item.age}} 
+                </li>
+            </ul> 
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+            // 计算属性 实现
+            const vm=new Vue({
+                el:"#root",
+                data:{
+                    persons:[
+                        {id:1,name:'马冬梅',age:19,gender:"女"},
+                        {id:2,name:'周冬雨',age:12,gender:"女"},
+                        {id:3,name:'周杰伦',age:17,gender:"男"},
+                        {id:4,name:'温兆伦',age:22,gender:"男"}
+                    ]
+                },
+                methods: {
+                    updPerson(){
+                        // 按索引修改 能被Vue监测到
+                        // this.persons[0].id=5
+                        // this.persons[0].name='马老师'
+                        // this.persons[0].age=50
+                        // this.persons[0].gender='男'
+
+                        //数据已被修改 ，但 Vue 不能正常监测到
+                       // this.persons[0]={id:5,name:'马老师',age:50,gender:'男'}
+                       
+                       this.persons.splice(0,1,{id:5,name:'马老师',age:50,gender:'男'})
+                    }
+                },                
+            })
+        </script>
+    </body>
+</html>
