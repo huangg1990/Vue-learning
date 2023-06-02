@@ -41,12 +41,11 @@
                         const showData=this.persons.filter((p) => {
                             return p.name.indexOf(this.keyWord) !== -1  
                         })
-                        
-                        // todo 排序
-                        if(this.sortFlag) return showData
+                         
+                        if(this.sortFlag == 0) return showData
                         
                         showData.sort((p1,p2)=>{
-                           return this.sortFlag === 1 ?  (p2.age - p1.age):( p1.age - p2.age)
+                           return this.sortFlag === 2 ?  (p2.age - p1.age):( p1.age - p2.age)
                         })
                         return showData
                     }

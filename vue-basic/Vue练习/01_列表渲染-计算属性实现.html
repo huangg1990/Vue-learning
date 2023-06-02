@@ -1,0 +1,75 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h4>列表渲染：Array</h4>
+            <input type="text" v-model="keyWord" placeholder="请输入关键词搜索">
+            <button @click="sortTag=1">按年龄升序</button>
+            <button @click="sortTag=2">按年龄降序</button>
+            <button @click="sortTag=0">默认排序</button>
+            <button @click="add"> Add</button>
+            <button @click="del"> Del</button>
+            <ul>
+                <li v-for="(p, idx) of showPersons" :key="p.id">
+                    id={{p.id}} => {{p.name}}-{{p.age}}
+                </li>
+            </ul>
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+            
+            const vm=new Vue({
+                el:"#root",
+                data:{
+                    persons:[
+                        {id:1,name:'张三',age:18} ,
+                        {id:2,name:'张春强',age:31} ,
+                        {id:3,name:'李三',age:18} ,
+                        {id:4,name:'李冬华',age:23} ,
+                        {id:5,name:'易华',age:43} ,
+                        {id:6,name:'易冬梅',age:19}
+                    ],
+                    keyWord:'',
+                    sortTag: 0
+                },
+                computed:{
+                    showPersons(){
+                        const resData=this.persons.filter((p)=>{
+                            if(p.name.indexOf(this.keyWord)>=0){
+                                return true
+                            }
+                            return false
+                        })
+
+                        if(this.sortTag==0){
+                            return resData
+                        }
+
+                        resData.sort((p1,p2) =>{
+                           return this.sortTag === 1 ? p1.age- p2.age : p2.age-p1.age
+                        })
+
+                        return resData 
+                    }
+                },
+                methods:{
+                    add(){
+                        const p = {id:7,name:'lihua',age:11}
+                        this.persons.unshift(p)
+                    },
+                    del(){
+                       const p=this.persons.pop()
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
