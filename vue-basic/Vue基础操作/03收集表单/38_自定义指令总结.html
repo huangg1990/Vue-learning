@@ -1,0 +1,147 @@
+<! Document html>
+    <html>
+
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../../js/vue.js"></script>
+    </head>
+
+    <body>
+        <!--
+            自定义指令总结:
+            1)局部语法
+                new Vue({
+                    directives:{指令名:配置对象} 
+                })
+
+                OR
+                new Vue({
+                    directives(){}
+                })
+            2)全局指令
+                Vue.directive('指令名',{配制对象}) 或 Vue.directive('指令名',回调函数)
+
+            配制对象中常用的3个回调函
+                1)bind 指令与元素成功插入页面时调用
+                2)inserted 指令所在元素被插入页面时调用.
+                3)update 指令所在模版结构被重新解析时调用
+            
+            备注:
+                1)指令定义时不加v- ,但使用时要加 v-
+                2)指令名如果是多个单词,要使用kebab-case命名方式,不要用camelCase命名 
+
+
+            需求1: 定义一个v-big指令,和v-text功能类似,介不停地把绑定的数值放大10倍
+            需求2: 定义一个v-fbind指令,和v-bind功能类似,但可以让期所在的绑定的input元素默认获取焦点.
+        -->
+        <div id="root">
+            <h2>当前的N值是<span>{{n}}</span></h2>
+            <h2>使用v-big放大后的N值是<span v-big-number="n"></span></h2>
+            <h2>使用v-big放大后的N值是<span v-big="n"></span></h2>
+            <button @click="n++">点我n+1</button>
+            <input v-fbind="n">
+
+            <hr />
+            <h2>当前的name值是<span>{{name}}</span></h2>
+            <button @click="name=name+111">点我改name</button>
+
+            <hr />
+        </div>
+
+        <div id="root2">
+            <h2>当前的N值是<span>{{n}}</span></h2>
+            <input v-fbind="n">
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+
+
+            //定义全局 自定义指令
+            Vue.directive('fbind', {
+                bind(element, binding) {
+                    // 指令与元素成功绑定时(一上来)
+                    console.log('bind')
+                    element.value = binding.value
+                },
+                inserted(element, binding) {
+                    // 指定所在元素被插入页面时
+                    console.log('inserted')
+                    element.focus()
+                },
+                update(element, binding) {
+                    // 指令所在的模版被重载解析时
+                    console.log('update')
+                    element.value = binding.value
+                }
+            })
+
+            // Vue.directive('big', function (element, binding) {
+            //     // 注意 此处的 this 是Window 而不是 vue的实例
+            //     console.log('big', this)
+            //     console.log(element instanceof HTMLDocument)
+            //     console.log('@ big')
+            //     const showVal = binding.value * 10
+            //     element.innerText = showVal
+
+            // })
+
+
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                    name: 'huangg',
+                    n: 1
+                },
+                directives: {
+                    // big bivo何时会被调用? 1,指令与元素成功绑定时(一上来),2 指令所在的模板被重新解析时
+                    'big-number'(element, binding) {
+                        console.log(element instanceof HTMLDocument)
+                        console.log('@ big')
+                        const showVal = binding.value * 10
+                        element.innerText = showVal
+
+                    },
+                    big(element, binding) {
+                        // 注意 此处的 this 是Window 而不是 vue的实例
+                        console.log('big', this)
+                        console.log(element instanceof HTMLDocument)
+                        console.log('@ big')
+                        const showVal = binding.value * 10
+                        element.innerText = showVal
+
+                    },
+                    fbind: {
+                        bind(element, binding) {
+                            // 指令与元素成功绑定时(一上来)
+                            console.log('bind')
+                            element.value = binding.value
+                        },
+                        inserted(element, binding) {
+                            // 指定所在元素被插入页面时
+                            console.log('inserted')
+                            element.focus()
+                        },
+                        update(element, binding) {
+                            // 指令所在的模版被重载解析时
+                            console.log('update')
+                            element.value = binding.value
+                        }
+                    }
+                }
+            })
+        
+        
+            const vm2 =new Vue({
+                el:'#root2',
+                data:{
+                    n:12
+                }
+            })
+        </script>
+    </body>
+
+    </html>
