@@ -1,0 +1,30 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title> 
+    </head>
+    <body>
+        <button id="btn">点我创建一个输入框</button>
+
+        <script type="text/javascript">
+           const btn=document.getElementById('btn')
+           btn.onclick=()=>{
+                const input=document.createElement('input')
+                input.value=99
+                input.className="demo"
+                
+                // input.parentElement.style.backgroundColor='skyblue'
+                console.log(input.parentElement)
+
+
+                // input.focus() 放在前面不奏效
+                document.body.appendChild(input)
+                input.focus() // 放在页面上才凑效 ,样式、值、绑定事件除外
+
+
+                input.parentElement.style.backgroundColor='skyblue'
+           }
+        </script>
+    </body>
+</html>

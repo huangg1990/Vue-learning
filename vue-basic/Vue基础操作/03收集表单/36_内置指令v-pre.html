@@ -1,0 +1,33 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../../js/vue.js"></script>
+    </head>
+    <body>
+        <!--
+            v-pre 指令:
+                1)跳过期所在的节点的编译过程
+                2)可利用它跳过,没有使用指令语法、没有使用插值语法的节点,会加快编译
+                
+        -->
+        <div id="root">
+            <h1 v-pre>其实简单</h1>
+            <h1 v-pre>当前n的值为{{n}}</h1>
+            <button v-pre @click="n++">点我n+1</button>
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+            const vm=new Vue({
+                el:"#root",
+                data:{
+                    n:1
+                }
+            })
+        </script>
+    </body>
+</html>

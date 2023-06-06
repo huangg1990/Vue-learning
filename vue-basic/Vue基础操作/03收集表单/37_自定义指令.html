@@ -1,0 +1,74 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../../js/vue.js"></script>
+    </head>
+    <body>
+        <!--
+            需求1: 定义一个v-big指令,和v-text功能类似,介不停地把绑定的数值放大10倍
+            需求2: 定义一个v-fbind指令,和v-bind功能类似,但可以让期所在的绑定的input元素默认获取焦点.
+        -->
+        <div id="root">
+          <h2>当前的N值是<span>{{n}}</span></h2>  
+          <h2>使用v-big放大后的N值是<span v-big-number="n"></span></h2>  
+          <h2>使用v-big放大后的N值是<span v-big="n"></span></h2>  
+          <button @click="n++">点我n+1</button>
+          <input v-fbind="n">
+
+          <hr/>
+          <h2>当前的name值是<span>{{name}}</span></h2>  
+          <button @click="name=name+111">点我改name</button>
+          
+          <hr/>
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+            const vm=new Vue({
+                el:'#root',
+                data:{
+                    name:'huangg',
+                    n:1
+                },
+                directives:{
+                    // big bivo何时会被调用? 1,指令与元素成功绑定时(一上来),2 指令所在的模板被重新解析时
+                    'big-number'(element,binding){
+                        console.log(element instanceof HTMLDocument)
+                        console.log('@ big')
+                        const showVal = binding.value * 10
+                        element.innerText=showVal
+                        
+                    },
+                    big(element,binding){
+                        console.log(element instanceof HTMLDocument)
+                        console.log('@ big')
+                        const showVal = binding.value * 10
+                        element.innerText=showVal
+                        
+                    }, 
+                    fbind:{
+                        bind(element,binding){
+                            // 指令与元素成功绑定时(一上来)
+                            console.log('bind')
+                            element.value = binding.value
+                        },
+                        inserted(element,binding){ 
+                            // 指定所在元素被插入页面时
+                            console.log('inserted')
+                            element.focus()
+                        },
+                        update(element,binding){
+                            // 指令所在的模版被重载解析时
+                            console.log('update')
+                            element.value=binding.value
+                        }
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
