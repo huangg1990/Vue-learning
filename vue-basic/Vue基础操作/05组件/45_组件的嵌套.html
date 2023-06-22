@@ -1,0 +1,91 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <!-- <school></school> -->
+            
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+
+            const student={
+                template:`<div>
+                    <h2>姓名:{{name}}</h2>
+                    </div>`,
+                data(){
+                    return{
+                        name:'小钢'
+                    }
+                }
+            }
+
+            const school= Vue.extend({
+                template:`
+                    <div>
+                        <h2>学校:{{name}}</h2>
+                        <h2>地址:{{address}}</h2>
+                        <hr/>
+                        <h2>学生信息</h2>
+                        <student></student>
+                    </div>
+                    `,
+                data(){
+                    return {
+                        name:"小黄",
+                        address:"北京"
+                    }
+                },
+                components:{
+                    student
+                }
+            })
+
+            const hello={
+                template:`
+                    <div>
+                        <h1>{{msg}}</h1>
+                    </div>`,
+                data(){
+                    return{
+                        msg:' hello Welcome'
+                    }
+                }
+            }
+
+            const app={
+                template:`
+                    <div>
+                        <hello></hello>
+                        <school></school>
+                    </div>
+                   
+                `,
+                components:{
+                    hello,
+                    school
+                }
+            }
+
+          
+
+            new Vue({
+                template:`<app></app>`,
+                el:'#root',
+                data:{
+                    msg:"hello"
+                },
+                components:{ 
+                    app
+                }
+            })
+        </script>
+    </body>
+</html>

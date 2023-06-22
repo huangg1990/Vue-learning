@@ -1,0 +1,98 @@
+<! Document html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>初识Vue</title>
+        <!-- 引用Vue -->
+        <!-- https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=4&spm_id_from=pageDriver&vd_source=c20fdee8eb71a2604ed4f84d382f798f -->
+        <script type="text/javascript" src="../../js/vue.js"></script>
+    </head>
+    <body>
+        <!--
+            几个注意点:
+                1 关于组件命名
+                    一个单词组成:
+                        第一种写法(首字母小写):school
+                        第二种写法(首字母大写):School
+                    多个单词组成:、
+                        第一种写法(kebab-case命名): my-school
+                        第二种写法(CamelCase命名):MySchool(需要Vue脚手架支持)
+                    备注
+                        1)组件名尽可能回避HTML中忆有元素名称,例如:h2,H2都不行.
+                        2)可以使用name配制项指定组件在开发者工具中呈现的名字.
+                2.关于组件标签:
+                    第一种写法 <school></school>
+                    第二种写法 <school/>
+                    备注:不用使用脚手架时,<school/> 会导致后续组件不能渲染
+                3.一个简写方式:
+                    const school=Vue.extend(options) 可以简写为 const school= options
+
+        -->
+        <div id="root">
+            <h2>{{msg}}</h2>
+            <hr/>
+            <myschool></myschool>
+
+            <hr/>
+            <my-school></my-school>
+
+            <hr/>
+            <MySchool></MySchool>
+
+
+            <hr/>
+            <student></student>
+
+            <hr/> 
+            只显示了一个? 需要使用脚手架
+            <MySchool/>
+            <MySchool/>
+            <MySchool/>
+           
+        </div>
+
+        <script type="text/javascript">
+            Vue.config.productionTip = false  // 阻止Vue 在启动时生成的生产提示
+            const school= Vue.extend({
+                template:`
+                    <div>
+                        <h2>学校:{{name}}</h2>
+                        <h2>地址:{{address}}</h2>
+                    </div>
+                    `,
+                data(){
+                    return {
+                        name:"小黄",
+                        address:"北京"
+                    }
+                }
+            })
+
+            const student={
+                template:`<div>
+                    <h2>姓名:{{name}}</h2>
+                    </div>`,
+                data(){
+                    return{
+                        name:'小钢'
+                    }
+                }
+            }
+
+            new Vue({
+                el:'#root',
+                data:{
+                    msg:"hello"
+                },
+                components:{
+                    // school:school 同名 可以简写
+                    // school
+                    myschool:school,
+                    'my-school':school,
+                    'MySchool':school,
+                    student:student
+                }
+            })
+        </script>
+    </body>
+</html>
