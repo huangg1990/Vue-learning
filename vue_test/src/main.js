@@ -3,10 +3,10 @@
 import Vue from 'vue'
 
 // 引用 App
-import App from './App'
+import App from './App'  
 
 // 设置生产提示
-Vue.config.productionTip = false
+Vue.config.productionTip = false 
 
 new Vue({
     el:'#app',

@@ -26,7 +26,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 
-# vue.config.js 配置文件
+## vue.config.js 配置文件
 >  使用 vue inspect > output.js 可以查看到Vue脚手架的默认配置
 >  使用 vue.config.js 可以对脚手架进行个性化定制,详见 https://cli.vuejs.org/zh/config/ 
 
@@ -53,3 +53,42 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
     备注:props是只读的,Vue底支会监测你对props的修改,如果进行了修改,就会发出警告 
         可以在内部data格外添加属性(复制props的内容到data中一份,然后去修改data中的数据) 解决
         传参数是避免关键词 key,ref 等等
+
+## mixin(混入) 可以把多个组件的配制提取碾一个混入对象
+    使用方式
+        1 定义混合, eg.
+            export const hunhe ={
+                data(){
+                    return {
+                        x:1,y:2
+                    }
+                },
+                methods:{
+                    xxx
+                }
+            }
+        2 使用混入, eg.
+            import {xxx} from './xxx.js'
+            全局混入 Vue.mixin(xx)
+            局部混入 mixins[xx,xx]
+
+## 插件 plugins (用于增强Vue)
+    本质:包含install 方法的一个对象,install 的第一个参数是Vue,第二个以后的参数是插件使用者传递的数据.
+    定义插件
+        对象 .install = function(Vue,options){
+            // 添加全局过滤器
+            Vue.filter(....)
+
+            // 添加全局指令
+            Vue.directive(.....)
+
+            // 配制全局混入(合)
+            Vue.mixin(..)
+
+            // 添加实例方法、属性
+            Vue.prototype.$myMethod= function(){....}
+            Vue.prototype.$myProperty =xxx
+        }
+    使用插件
+        import xxx from xxx.js
+        Vue.use(xxx)
