@@ -20,7 +20,9 @@ export default {
 }
 </script>
 
+
 <style>
+  /* App中的样式一般都是全局使用的 所以不加 scoped */ 
   .title{
     color: rebeccapurple;
   }

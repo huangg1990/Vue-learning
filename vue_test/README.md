@@ -92,3 +92,12 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
     使用插件
         import xxx from xxx.js
         Vue.use(xxx)
+
+## scoped样式 (防止样式冲突)
+    让样式在局部生效,防止冲突 (原理 格式生成了 一个随机标签)
+    写法 
+    <style scoped>
+    设置 样式 less 语法,不写 默认是 css
+    <style lang="less" scoped>  
+    安装 npm i less-loader@7  安装指定版本
+    查看 版本 npm view less-loader versions
